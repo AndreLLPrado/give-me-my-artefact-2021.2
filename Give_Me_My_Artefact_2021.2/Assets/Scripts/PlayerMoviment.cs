@@ -25,7 +25,17 @@ public class PlayerMoviment : NetworkBehaviour
     {
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
+        move.y = Input.GetAxis("Jump");
+        //if (move.y < 1f)
+        //{
+        //    move.y -= 1f;
+        //}
+        
         move = Vector3.ClampMagnitude(move, 1f);
-        cc.SimpleMove(move * 5f);
+
+        Debug.Log(move.y.ToString());
+
+        //cc.SimpleMove(move * 5f);
+        cc.Move(move * 5f * Time.deltaTime);
     }
 }
