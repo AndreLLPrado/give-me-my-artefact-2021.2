@@ -6,6 +6,11 @@ using MLAPI;
 public class PlayerMoviment : NetworkBehaviour
 {
     CharacterController cc;
+    Vector3 move;
+    public float jumpSpeed;
+    public float playerSpeed;
+    public float rotSpeed;
+    public float gravity;
     void Start()
     {
         cc = GetComponent<CharacterController>();
@@ -23,19 +28,19 @@ public class PlayerMoviment : NetworkBehaviour
 
     void MovePlayer()
     {
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-
-        move.y = Input.GetAxis("Jump");
-        //if (move.y < 1f)
-        //{
-        //    move.y -= 1f;
-        //}
+        if (cc.isGrounded)
+        {
+            move = new Vector3(0, 0, Input.GetAxis("Vertical"));
+            move = transform.TransformDirection(move);
+            move *= playerSpeed;
+            if (Input.GetButton("Jump"))
+            {
+                move.y = jumpSpeed;
+            }
+        }
+        move.y -= gravity * Time.deltaTime;
         
-        move = Vector3.ClampMagnitude(move, 1f);
-
-        Debug.Log(move.y.ToString());
-
-        //cc.SimpleMove(move * 5f);
-        cc.Move(move * 5f * Time.deltaTime);
+        cc.Move(move * Time.deltaTime);
+        transform.Rotate(0, Input.GetAxis("Horizontal") * rotSpeed * Time.deltaTime, 0);
     }
 }
