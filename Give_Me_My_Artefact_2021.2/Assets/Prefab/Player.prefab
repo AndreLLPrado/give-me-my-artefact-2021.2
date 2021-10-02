@@ -311,3 +311,5 @@ MonoBehaviour:
   playerSpeed: 5
   rotSpeed: 100
   gravity: 20
+  color1: {fileID: 2100000, guid: 2a69cf8431d504e4296a2903dbd5ef59, type: 2}
+  color2: {fileID: 2100000, guid: 3774569b2bdac054ca11b7a9a00af1da, type: 2}

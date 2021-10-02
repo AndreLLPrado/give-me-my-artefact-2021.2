@@ -11,9 +11,13 @@ public class PlayerMoviment : NetworkBehaviour
     public float playerSpeed;
     public float rotSpeed;
     public float gravity;
+
+    public Material color1;
+    public Material color2;
     void Start()
     {
         cc = GetComponent<CharacterController>();
+        
     }
 
     // Update is called once per frame
@@ -22,6 +26,17 @@ public class PlayerMoviment : NetworkBehaviour
         if (IsLocalPlayer)
         {
             MovePlayer();
+
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                gameObject.GetComponentInChildren<MeshRenderer>().sharedMaterial = color1;
+                playerSpeed = 5f;
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                gameObject.GetComponentInChildren<MeshRenderer>().sharedMaterial = color2;
+                playerSpeed *= 2;
+            }
         }
         
     }
