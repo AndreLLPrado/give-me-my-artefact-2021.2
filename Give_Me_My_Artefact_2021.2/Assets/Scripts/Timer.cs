@@ -20,7 +20,7 @@ public class Timer : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            startTimer = true;
+            //startTimer = true;
         }
         if (!timeOver && startTimer)
         {
