@@ -36,7 +36,7 @@ public class MenuScript : MonoBehaviour
     {
         NetworkManager.Singleton.StartHost();
         menuPanel.SetActive(false);
-        timerTextObj.SetActive(true);
+        //timerTextObj.SetActive(true);
     }
 
     public void Join()
@@ -52,6 +52,6 @@ public class MenuScript : MonoBehaviour
         NetworkManager.Singleton.NetworkConfig.ConnectionData = System.Text.Encoding.ASCII.GetBytes("mygame");
         NetworkManager.Singleton.StartClient();
         menuPanel.SetActive(false);
-        timerTextObj.SetActive(true);
+        //timerTextObj.SetActive(true);
     }
 }

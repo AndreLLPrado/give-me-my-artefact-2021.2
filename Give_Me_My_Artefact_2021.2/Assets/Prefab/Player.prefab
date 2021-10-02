@@ -189,6 +189,7 @@ GameObject:
   - component: {fileID: 4100650138870201057}
   - component: {fileID: 8168213705163135630}
   - component: {fileID: 4598532385830923122}
+  - component: {fileID: 5947395225707468210}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -311,5 +312,20 @@ MonoBehaviour:
   playerSpeed: 5
   rotSpeed: 100
   gravity: 20
-  color1: {fileID: 2100000, guid: 2a69cf8431d504e4296a2903dbd5ef59, type: 2}
-  color2: {fileID: 2100000, guid: 3774569b2bdac054ca11b7a9a00af1da, type: 2}
+  color: {fileID: 2100000, guid: ad5b43d2215544641999a44761d1b499, type: 2}
+--- !u!114 &5947395225707468210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6708553724570326243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 162b39f8b25fafe4e948b5fcd4e3c7f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color1:
+    m_InternalValue: {fileID: 2100000, guid: 2a69cf8431d504e4296a2903dbd5ef59, type: 2}
+  color2:
+    m_InternalValue: {fileID: 2100000, guid: 3774569b2bdac054ca11b7a9a00af1da, type: 2}

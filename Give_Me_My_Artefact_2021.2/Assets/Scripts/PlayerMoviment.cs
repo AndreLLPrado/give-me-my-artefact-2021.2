@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MLAPI;
+using MLAPI.NetworkVariable;
 
 public class PlayerMoviment : NetworkBehaviour
 {
@@ -12,12 +13,12 @@ public class PlayerMoviment : NetworkBehaviour
     public float rotSpeed;
     public float gravity;
 
-    public Material color1;
-    public Material color2;
+    public Material color;
+
     void Start()
     {
         cc = GetComponent<CharacterController>();
-        
+        changeColor(color);
     }
 
     // Update is called once per frame
@@ -26,19 +27,8 @@ public class PlayerMoviment : NetworkBehaviour
         if (IsLocalPlayer)
         {
             MovePlayer();
-
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                gameObject.GetComponentInChildren<MeshRenderer>().sharedMaterial = color1;
-                playerSpeed = 5f;
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                gameObject.GetComponentInChildren<MeshRenderer>().sharedMaterial = color2;
-                playerSpeed *= 2;
-            }
         }
-        
+
     }
 
     void MovePlayer()
@@ -57,5 +47,14 @@ public class PlayerMoviment : NetworkBehaviour
         
         cc.Move(move * Time.deltaTime);
         transform.Rotate(0, Input.GetAxis("Horizontal") * rotSpeed * Time.deltaTime, 0);
+    }
+
+    public void changeColor(Material c)
+    {
+        if (IsLocalPlayer)
+        {
+            GetComponentInChildren<MeshRenderer>().sharedMaterial = c;
+        }
+        
     }
 }
