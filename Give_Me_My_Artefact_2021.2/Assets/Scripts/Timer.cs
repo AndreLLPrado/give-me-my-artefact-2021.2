@@ -3,40 +3,50 @@ using System.Collections.Generic;
 using UnityEngine;
 using MLAPI;
 using MLAPI.NetworkVariable;
+using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
-    public float timer; //time in seconds
-    public bool timeOver;
-    public bool startTimer;
-    public GameObject timerPanel;
+    //public float timer; //time in seconds
+    public NetworkVariableFloat timer; //time in seconds
+    public NetworkVariableBool timeOver;
+    public NetworkVariableBool startTimer;
+    //public bool timeOver;
+    //public bool startTimer;
+    //public GameObject timerPanel;
+
+    Text score;
+    //NetworkVariable<Text> score;
+    
     void Start()
     {
-        timeOver = false;
-        startTimer = false;
+        timeOver.Value = false;
+        startTimer.Value = false;
+        score = GetComponent<Text>();
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            //startTimer = true;
+            startTimer.Value = true;
         }
-        if (!timeOver && startTimer)
+        if (!timeOver.Value && startTimer.Value)
         {
             runTimer();
+            score.text = timer.Value.ToString() + "s";
         }
 
-        //timerPanel.GetComponent<TextEditor>().text = timer.ToString();
+        
     }
 
     public void runTimer()
     {
-        timer -= 1f * Time.deltaTime;
+        timer.Value -= 1f * Time.deltaTime;
 
-        if(timer <= 0f)
+        if(timer.Value <= 0f)
         {
-            timeOver = true;
+            timeOver.Value = true;
         }
     }
 }
