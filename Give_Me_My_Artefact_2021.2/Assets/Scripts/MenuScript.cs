@@ -12,6 +12,7 @@ public class MenuScript : MonoBehaviour
     public GameObject timerTextObj;
 
     public InputField inputField;
+    public InputField inputNickname;
 
 
     private void Start()
@@ -30,6 +31,11 @@ public class MenuScript : MonoBehaviour
         }
         Debug.Log($"Approval: {approve}");
         callBack(true, null, approve, new Vector3(0, 10, 0), Quaternion.identity);
+
+        if(inputNickname.text.Length <= 0)
+        {
+            inputNickname.text = "Player";
+        }
     }
 
     public void Host()

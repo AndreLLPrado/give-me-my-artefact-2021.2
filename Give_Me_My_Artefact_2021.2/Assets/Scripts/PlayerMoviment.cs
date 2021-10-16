@@ -18,7 +18,7 @@ public class PlayerMoviment : NetworkBehaviour
     void Start()
     {
         cc = GetComponent<CharacterController>();
-        changeColor(color);
+        //changeColor(color);
     }
 
     // Update is called once per frame

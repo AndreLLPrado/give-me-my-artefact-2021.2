@@ -5,7 +5,7 @@ using MLAPI;
 using MLAPI.NetworkVariable;
 using UnityEngine.UI;
 
-public class Timer : MonoBehaviour
+public class Timer : NetworkBehaviour
 {
     //public float timer; //time in seconds
     public NetworkVariableFloat timer; //time in seconds
@@ -15,26 +15,26 @@ public class Timer : MonoBehaviour
     //public bool startTimer;
     //public GameObject timerPanel;
 
-    Text score;
+    public Text timerTxt;
     //NetworkVariable<Text> score;
     
     void Start()
     {
         timeOver.Value = false;
         startTimer.Value = false;
-        score = GetComponent<Text>();
+        //timerTxt = GetComponent<Text>();
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            startTimer.Value = true;
+            //startTimer.Value = true;
         }
         if (!timeOver.Value && startTimer.Value)
         {
             runTimer();
-            score.text = timer.Value.ToString() + "s";
+            timerTxt.text = timer.Value.ToString() + "s";
         }
 
         
@@ -48,5 +48,10 @@ public class Timer : MonoBehaviour
         {
             timeOver.Value = true;
         }
+    }
+
+    public void StartTimer()
+    {
+        startTimer.Value = true;
     }
 }
