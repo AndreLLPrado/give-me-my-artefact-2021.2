@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MLAPI;
 using MLAPI.Transports.UNET;
+using MLAPI.NetworkVariable;
 using UnityEngine.UI;
 using System;
 
@@ -10,13 +11,22 @@ public class MenuScript : MonoBehaviour
 {
     public GameObject menuPanel;
     public GameObject timerTextObj;
+    public GameObject timerButton;
+    public GameObject wizzardButton;
+    public GameObject catButton;
 
     public InputField inputField;
     public InputField inputNickname;
 
+    //public NetworkVariableBool cWizzard;
+    //public NetworkVariableBool cCat;
+
+    public bool cWizzard;
+    public bool cCat;
 
     private void Start()
     {
+        ActiveWithStart(false, false, false, true);
         NetworkManager.Singleton.ConnectionApprovalCallback += approvalCheck;
     }
 
@@ -30,18 +40,20 @@ public class MenuScript : MonoBehaviour
             approve = true;
         }
         Debug.Log($"Approval: {approve}");
-        callBack(true, null, approve, new Vector3(0, 10, 0), Quaternion.identity);
 
         if(inputNickname.text.Length <= 0)
         {
             inputNickname.text = "Player";
         }
+
+        callBack(true, null, approve, new Vector3(0, 10, 0), Quaternion.identity);
     }
 
     public void Host()
     {
+        ActiveWithStart(true, true, true, false);
         NetworkManager.Singleton.StartHost();
-        menuPanel.SetActive(false);
+        //menuPanel.SetActive(false);
         //timerTextObj.SetActive(true);
     }
 
@@ -56,8 +68,32 @@ public class MenuScript : MonoBehaviour
             NetworkManager.Singleton.GetComponent<UNetTransport>().ConnectAddress = inputField.text;
         }
         NetworkManager.Singleton.NetworkConfig.ConnectionData = System.Text.Encoding.ASCII.GetBytes("mygame");
+        ActiveWithStart(false, true, true,false);
         NetworkManager.Singleton.StartClient();
-        menuPanel.SetActive(false);
+
+        //menuPanel.SetActive(false);
         //timerTextObj.SetActive(true);
+    }
+
+    public void ChangePlayerToWizzard()
+    {
+        cWizzard = true;
+        cCat = false;
+    }
+
+    public void ChangePlayerToCat()
+    {
+        cWizzard = false;
+        cCat = true;
+    }
+
+    void ActiveWithStart(bool bTimer, bool timer, bool playerButtons, bool menu)
+    {
+        
+        menuPanel.SetActive(menu);
+        timerButton.SetActive(bTimer);
+        timerTextObj.SetActive(timer);
+        wizzardButton.SetActive(playerButtons);
+        catButton.SetActive(playerButtons);
     }
 }

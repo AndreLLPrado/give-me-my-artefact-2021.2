@@ -4,7 +4,6 @@ using UnityEngine;
 using MLAPI.NetworkVariable;
 using MLAPI;
 using UnityEngine.UI;
-using MLAPI.NetworkVariable;
 
 public class playerChangesScript : NetworkBehaviour
 {
@@ -23,6 +22,12 @@ public class playerChangesScript : NetworkBehaviour
     public NetworkVariableString nickTxt;
     //public NetworkVariable<Text> nick;
 
+    public NetworkVariableBool changeWizzard;
+    public NetworkVariableBool changeCat;
+
+    //bool changeWizzard;
+    //bool changeCat;
+
     private ulong playerID;
     void Start()
     {
@@ -34,6 +39,11 @@ public class playerChangesScript : NetworkBehaviour
         if (IsLocalPlayer)
         {
             nickTxt.Value = GameObject.Find("GameCanvas").GetComponent<MenuScript>().inputNickname.text;
+
+            if(nickTxt.Value.Length <= 0)
+            {
+                nickTxt.Value = playerID.ToString();
+            }
         }
             nick.text = nickTxt.Value;
     }
@@ -43,11 +53,28 @@ public class playerChangesScript : NetworkBehaviour
     {
         if (IsLocalPlayer)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1) && !asWizzard)
+            //if (Input.GetKeyDown(KeyCode.Alpha1))
+            //{
+            //    changeWizzard.Value = true;
+            //    changeCat.Value = false;
+            //}
+            //else if (Input.GetKeyDown(KeyCode.Alpha2))
+            //{
+            //    changeCat.Value = true;
+            //    changeWizzard.Value = false;
+            //}
+
+            GetPlayerForm();
+
+            //asWizzard = changeWizzard.Value;
+            //asCat = changeCat.Value;
+
+            if (asWizzard || changeWizzard.Value)
             {
                 setPlayerAsWizzard();
             }
-            else if (Input.GetKeyDown(KeyCode.Alpha2) && !asCat)
+
+            if (asCat || changeCat.Value)
             {
                 setPlayerAsCat();
             }
@@ -59,10 +86,10 @@ public class playerChangesScript : NetworkBehaviour
         gameObject.GetComponentInChildren<MeshRenderer>().sharedMaterial = color2;
         //gameObject.GetComponentInChildren<MeshRenderer>().sharedMaterial = color2.Value;
         //gameObject.GetComponent<PlayerMoviment>().changeColor(color1.Value);
-        gameObject.GetComponent<PlayerMoviment>().playerSpeed *= 2f;
+        gameObject.GetComponent<PlayerMoviment>().playerSpeed = 10f;
 
-        asCat = true;
-        asWizzard = false;
+        //asCat = true;
+        //asWizzard = false;
     }
 
     public void setPlayerAsWizzard()
@@ -72,7 +99,16 @@ public class playerChangesScript : NetworkBehaviour
         //gameObject.GetComponent<PlayerMoviment>().changeColor(color2.Value);
         gameObject.GetComponent<PlayerMoviment>().playerSpeed = 5f;
 
-        asCat = false;
-        asWizzard = true;
+        //asCat = false;
+        //asWizzard = true;
+    }
+
+    public void GetPlayerForm()
+    {
+        //asWizzard = GameObject.Find("GameCanvas").GetComponent<MenuScript>().cWizzard;
+        //asCat = GameObject.Find("GameCanvas").GetComponent<MenuScript>().cCat;
+
+        changeWizzard.Value = GameObject.Find("GameCanvas").GetComponent<MenuScript>().cWizzard;
+        changeCat.Value = GameObject.Find("GameCanvas").GetComponent<MenuScript>().cCat;
     }
 }

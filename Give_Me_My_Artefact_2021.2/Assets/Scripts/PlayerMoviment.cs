@@ -13,12 +13,9 @@ public class PlayerMoviment : NetworkBehaviour
     public float rotSpeed;
     public float gravity;
 
-    public Material color;
-
     void Start()
     {
         cc = GetComponent<CharacterController>();
-        //changeColor(color);
     }
 
     // Update is called once per frame
@@ -47,14 +44,5 @@ public class PlayerMoviment : NetworkBehaviour
         
         cc.Move(move * Time.deltaTime);
         transform.Rotate(0, Input.GetAxis("Horizontal") * rotSpeed * Time.deltaTime, 0);
-    }
-
-    public void changeColor(Material c)
-    {
-        if (IsLocalPlayer)
-        {
-            GetComponentInChildren<MeshRenderer>().sharedMaterial = c;
-        }
-        
     }
 }

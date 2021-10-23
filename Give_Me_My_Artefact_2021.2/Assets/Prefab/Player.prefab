@@ -269,7 +269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
-  m_EffectDistance: {x: 2, y: -2}
+  m_EffectDistance: {x: 5, y: -5}
   m_UseGraphicAlpha: 1
 --- !u!1 &5316007580539359993
 GameObject:
@@ -521,7 +521,6 @@ MonoBehaviour:
   playerSpeed: 5
   rotSpeed: 100
   gravity: 20
-  color: {fileID: 2100000, guid: ad5b43d2215544641999a44761d1b499, type: 2}
 --- !u!114 &5947395225707468210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -541,3 +540,7 @@ MonoBehaviour:
   nick: {fileID: 6348749964383713183}
   nickTxt:
     m_InternalValue: 
+  changeWizzard:
+    m_InternalValue: 0
+  changeCat:
+    m_InternalValue: 0
