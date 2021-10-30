@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MLAPI.NetworkVariable;
 using MLAPI;
+using MLAPI.Messaging;
 using UnityEngine.UI;
 
 public class playerChangesScript : NetworkBehaviour
@@ -13,6 +14,9 @@ public class playerChangesScript : NetworkBehaviour
 
     public Material color1;
     public Material color2;
+
+    [SerializeField] private Renderer playerColorRender;
+    [SerializeField] private Color[] playerColors;
 
     public bool asCat;
     public bool asWizzard;
@@ -40,12 +44,13 @@ public class playerChangesScript : NetworkBehaviour
         {
             nickTxt.Value = GameObject.Find("GameCanvas").GetComponent<MenuScript>().inputNickname.text;
 
-            if(nickTxt.Value.Length <= 0)
+            if (nickTxt.Value.Length <= 0)
             {
                 nickTxt.Value = playerID.ToString();
             }
         }
-            nick.text = nickTxt.Value;
+        nick.text = nickTxt.Value;
+        //setNickClientRpc();
     }
 
     // Update is called once per frame
@@ -64,7 +69,7 @@ public class playerChangesScript : NetworkBehaviour
             //    changeWizzard.Value = false;
             //}
 
-            GetPlayerForm();
+            GetPlayerFormClientRpc();
 
             //asWizzard = changeWizzard.Value;
             //asCat = changeCat.Value;
@@ -81,8 +86,28 @@ public class playerChangesScript : NetworkBehaviour
         }
     }
 
+    //[ServerRpc]
+    //public void setPlayerColorServerRpc(byte pIndex)
+    //{
+
+    //}
+
+    //[ClientRpc]
+    //public void setNickClientRpc()
+    //{
+    //    if (IsLocalPlayer)
+    //    {
+    //        nickTxt.Value = GameObject.Find("GameCanvas").GetComponent<MenuScript>().inputNickname.text;
+    //        if (nickTxt.Value.Length <= 0)
+    //        {
+    //            nickTxt.Value = playerID.ToString();
+    //        }
+    //    }
+    //    nick.text = nickTxt.Value;
+    //}
     public void setPlayerAsCat()
     {
+        //playerColorRender.material.SetColor("_BaseColor",playerColors[1]);
         gameObject.GetComponentInChildren<MeshRenderer>().sharedMaterial = color2;
         //gameObject.GetComponentInChildren<MeshRenderer>().sharedMaterial = color2.Value;
         //gameObject.GetComponent<PlayerMoviment>().changeColor(color1.Value);
@@ -94,6 +119,7 @@ public class playerChangesScript : NetworkBehaviour
 
     public void setPlayerAsWizzard()
     {
+        //playerColorRender.material.SetColor("_BaseColor", playerColors[0]);
         gameObject.GetComponentInChildren<MeshRenderer>().sharedMaterial = color1;
         //gameObject.GetComponentInChildren<MeshRenderer>().sharedMaterial = color1.Value;
         //gameObject.GetComponent<PlayerMoviment>().changeColor(color2.Value);
@@ -103,7 +129,8 @@ public class playerChangesScript : NetworkBehaviour
         //asWizzard = true;
     }
 
-    public void GetPlayerForm()
+    [ClientRpc]
+    public void GetPlayerFormClientRpc()
     {
         //asWizzard = GameObject.Find("GameCanvas").GetComponent<MenuScript>().cWizzard;
         //asCat = GameObject.Find("GameCanvas").GetComponent<MenuScript>().cCat;
